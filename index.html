@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Japanese CI Library</title>
+  <meta name="description" content="A curated library of the most-watched videos in Japanese Comprehensible Input, by level.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="brand"><span class="jp">日本語</span>CI Library</div>
+    <nav class="site">
+      <a href="index.html" class="active">Library</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>
+      <span class="jp">日本語の聞き取り練習</span>
+      Japanese Comprehensible Input — Top 300
+    </h1>
+    <p>The most-watched lessons, podcasts, and conversations from leading CI creators on YouTube — bucketed by level, filterable by JLPT, format, and length. Click any card to play.</p>
+  </section>
+
+  <div class="controls">
+    <div class="bucket-tabs">
+      <button data-bucket="beginner">Beginner<span class="count"></span></button>
+      <button data-bucket="intermediate">Intermediate<span class="count"></span></button>
+      <button data-bucket="advanced">Advanced<span class="count"></span></button>
+    </div>
+    <div class="filters">
+      <select id="f-channel"></select>
+      <select id="f-jlpt"></select>
+      <select id="f-format"></select>
+      <select id="f-length">
+        <option value="">Any length</option>
+        <option value="short">Short (&lt;5 min)</option>
+        <option value="medium">Medium (5–15 min)</option>
+        <option value="long">Long (15–30 min)</option>
+        <option value="very-long">Very long (30 min+)</option>
+      </select>
+      <select id="f-english">
+        <option value="">EN subs?</option>
+        <option value="yes">With EN subs</option>
+      </select>
+      <select id="f-sort" class="sort">
+        <option value="views">Most viewed</option>
+        <option value="recent">Most recent</option>
+        <option value="oldest">Oldest first</option>
+        <option value="shortest">Shortest first</option>
+        <option value="longest">Longest first</option>
+      </select>
+    </div>
+  </div>
+
+  <main class="layout">
+    <section class="list-panel">
+      <div class="list-meta">
+        <span id="list-count"></span>
+        <span class="playlist-links">YouTube playlist: <span id="playlist-links"></span></span>
+      </div>
+      <div class="video-list" id="video-list"></div>
+    </section>
+
+    <aside class="player-panel">
+      <div class="player-frame" id="player"></div>
+      <h2 class="player-title" id="player-title">Select a video to play</h2>
+      <div class="player-info" id="player-info"></div>
+      <div id="player-link"></div>
+    </aside>
+  </main>
+
+  <footer class="site">
+    Built for an independent study in Language Autopedagogy (Japanese). <a href="about.html">Methodology →</a>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

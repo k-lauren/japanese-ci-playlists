@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Japanese CI Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="brand"><span class="jp">日本語</span>CI Library</div>
+    <nav class="site">
+      <a href="index.html">Library</a>
+      <a href="about.html" class="active">About</a>
+    </nav>
+  </header>
+
+  <article class="prose">
+    <h1>About</h1>
+    <span class="jp">日本語の独学について</span>
+
+    <p>
+      This library is a project for an <strong>independent study in Language Autopedagogy</strong> — the
+      practice of teaching oneself a language by deliberately curating the input one consumes. The target
+      language is <strong>Japanese</strong>, and the medium is <strong>Comprehensible Input (CI)</strong>:
+      content delivered just slightly above the learner's current level, in a way that is understandable
+      from context, gesture, and prior knowledge — without translation.
+    </p>
+
+    <p>
+      The CI hypothesis (Krashen, 1985) holds that language is acquired, not learned, by exposure to
+      messages we can <em>almost</em> understand. The job of a self-directed learner, then, is to find
+      enough such messages to surround themselves with the language. YouTube is unusually well-suited
+      to this — a generation of teachers have built channels specifically for CI delivery — but the
+      catalog is sprawling, the level signals are inconsistent, and the most useful content isn't
+      always what the algorithm surfaces.
+    </p>
+
+    <p>
+      This site is one attempt at a fix: a hand-bucketed, view-ranked, tag-filterable index of the most-watched
+      videos from established Japanese CI channels.
+    </p>
+
+    <h2>Selection methodology</h2>
+
+    <p>
+      Selection was a four-stage process. Source code and raw data are
+      <a href="https://github.com/k-lauren/japanese-ci-playlists" target="_blank" rel="noopener">on GitHub</a>.
+    </p>
+
+    <p><strong>1. Channel-anchored seed list.</strong> Rather than running a broad keyword search
+    (which produces noise — generic "learn Japanese" content that isn't true CI), I started with a
+    curated list of established Japanese CI channels: Comprehensible Japanese, Speak Japanese
+    Naturally, Onomappu, Nihongo con Teppei, Japanese with Shun, Japanese Immersion with Asami,
+    Sayuri Saying, Miku Real Japanese, YUYU's Japanese Podcast, Bite-size Japanese Podcast, and
+    Akane's Japanese Class.</p>
+
+    <p><strong>2. Full upload pull.</strong> Using the YouTube Data API, I pulled every public video
+    from each channel along with its view count, duration, and publication date. Total candidate pool:
+    ~9,000 videos. Shorts (under 60 seconds) were filtered out — they skew view counts and aren't
+    really lessons.</p>
+
+    <p><strong>3. Two-pass level classification.</strong> Each video was assigned to one of three
+    buckets — beginner, intermediate, or advanced — using:</p>
+    <ul>
+      <li><em>Title-based override (preferred).</em> Explicit JLPT markers (N5, N4 → beginner; N3 →
+      intermediate; N2, N1 → advanced) and Japanese level keywords (初級, 中級, 上級) take precedence.</li>
+      <li><em>Channel-default fallback.</em> When no title signal exists, the video inherits its
+      channel's typical level. This is rough — channels span levels — but it's the best signal
+      available without watching every video.</li>
+    </ul>
+
+    <p><strong>4. Ranking and per-channel cap.</strong> Within each bucket, videos are sorted by view
+    count (descending) and capped at <strong>35 videos per channel</strong>, so no one creator
+    dominates a level. The top 100 then make the cut. This produced 300 videos total — split into
+    six YouTube playlists of 50 (a per-playlist limit imposed by the bulk-creation flow used).</p>
+
+    <h2>The playlists</h2>
+    <div class="playlist-list" id="playlist-list"></div>
+
+    <h2>Tags</h2>
+    <p>Within each bucket, additional tags allow finer filtering on the library page:</p>
+    <ul>
+      <li><strong>JLPT level</strong> — extracted from titles where the creator labeled it.</li>
+      <li><strong>Format</strong> — heuristic from title keywords: lesson, podcast, vlog,
+      conversation, interview, story-reading, grammar/vocab lesson, culture, news.</li>
+      <li><strong>Length</strong> — short (&lt;5 min), medium (5–15), long (15–30), very long (30+).</li>
+      <li><strong>EN subs</strong> — videos that explicitly advertise English subtitles.</li>
+    </ul>
+
+    <h2>What this is not</h2>
+    <p>
+      This is a <em>view-rank</em> of CI content from <em>specific established channels</em>. It is
+      not a comprehensive index of all Japanese CI on YouTube, not a quality-ranked list, and not a
+      pedagogical curriculum. View counts reward virality, not necessarily learning value — but they
+      do correlate well with watchability, which matters for input volume.
+    </p>
+    <p>
+      Individual videos may be miscategorized — a podcast on Akane's "advanced" channel might really
+      be intermediate, and several of Shun's "intermediate" videos are explicitly N4 and belong with
+      beginners. The title-based reclassification catches some of this; the rest is left to the
+      learner's judgment.
+    </p>
+
+    <h2>Tools</h2>
+    <p>
+      Built with the <a href="https://developers.google.com/youtube/v3" target="_blank" rel="noopener">YouTube Data API v3</a>,
+      Python for ranking, vanilla HTML/CSS/JS for the site, and YouTube's internal playlist API for
+      bulk playlist creation. Hosted on GitHub Pages. No analytics, no tracking.
+    </p>
+
+    <h2>Acknowledgments</h2>
+    <p>
+      All credit to the eleven creators above, who make the input that makes this study possible.
+      Subscribe to them.
+    </p>
+
+    <p style="margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px;">
+      <a href="index.html">← Back to library</a>
+    </p>
+  </article>
+
+  <script src="data.js"></script>
+  <script>
+    const labels = {
+      beginner_pt1: 'Beginner — Pt 1 (videos 1–50)',
+      beginner_pt2: 'Beginner — Pt 2 (videos 51–100)',
+      intermediate_pt1: 'Intermediate — Pt 1 (videos 1–50)',
+      intermediate_pt2: 'Intermediate — Pt 2 (videos 51–100)',
+      advanced_pt1: 'Advanced — Pt 1 (videos 1–50)',
+      advanced_pt2: 'Advanced — Pt 2 (videos 51–100)',
+    };
+    const list = document.getElementById('playlist-list');
+    list.innerHTML = Object.keys(labels).map(k =>
+      `<a href="https://www.youtube.com/playlist?list=${SITE_DATA.playlists[k]}" target="_blank" rel="noopener">${labels[k]}<span class="arrow">↗</span></a>`
+    ).join('');
+  </script>
+</body>
+</html>
